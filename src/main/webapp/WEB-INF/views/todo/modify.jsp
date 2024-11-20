@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: EZEZ
+  User: mutjung0
   Date: 2024-11-18
   Time: 오후 4:47
   To change this template use File | Settings | File Templates.
@@ -73,34 +73,62 @@
                     Featured
                 </div>
                 <div class="card-body">
-                    <form action="/todo/register" method="post">
+                    <form action="/todo/modify" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Tno</span>
+                            <input type="text" name="tno" class="form-control" value="${dto.tno}" readonly>
+                        </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Title</span>
-                            <input type="text" name="title" class="form-control" placeholder="Title">
+                            <input type="text" name="title" class="form-control" value="${dto.title}">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">DueDate</span>
-                            <input type="date" name="dueDate">
+                            <input type="date" name="dueDate" class="form-control" value="${dto.dueDate}">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Writer</span>
-                            <input type="text" name="writer" class="form-control" placeholder="Title">
+                            <input type="text" name="writer" class="form-control" value="${dto.writer}" readonly>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">Finished &nbsp;</label>
+                            <input class="form-check-input" type="checkbox" name="finished" ${dto.finished?"checked":""}>
                         </div>
 
                         <div class="my-4">
                             <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Register</button>
+                                <button type="button" class="btn btn-danger">Remove</button>
+                                <button type="button" class="btn btn-primary">Modify</button>
+                                <button type="button" class="btn btn-secondary">List</button>
                             </div>
 
                         </div>
 
                     </form>
                     <script>
-                        const serverValidResult = {};
-                        <c:forEach items="${errors}" var="error">
-                            serverValidResult['${error.getField()}'] = '${error.defaultMessage}';
-                        </c:forEach>
-                        console.log(serverValidResult);
+                        const formObj = document.querySelector("form");
+
+                        /*document.querySelector(".btn-danger").addEventListener("click", function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            formObj.action = "/todo/remove";
+                            formObj.method = "post";
+                            formObj.submit();
+                        }, false);*/
+
+                        document.querySelector(".btn-danger").addEventListener("click", function(e) {
+                            self.location = "/todo/remove?tno=" + ${dto.tno};
+
+                        }, false);
+                        document.querySelector(".btn-primary").addEventListener("click", function(e) {
+                            self.location = "/todo/modify?tno=" + ${dto.tno};
+
+                        }, false);
+                        document.querySelector(".btn-secondary").addEventListener("click", function(e) {
+                            self.location = "/todo/list";
+
+                        }, false);
                     </script>
                 </div>
             </div><!--card-->

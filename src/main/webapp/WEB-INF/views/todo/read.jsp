@@ -1,12 +1,12 @@
 <%--
   Created by IntelliJ IDEA.
-  User: EZEZ
-  Date: 2024-11-18
-  Time: 오후 4:47
+  User: mutjung0
+  Date: 2024-11-20
+  Time: 오후 5:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -73,34 +73,43 @@
                     Featured
                 </div>
                 <div class="card-body">
-                    <form action="/todo/register" method="post">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Title</span>
-                            <input type="text" name="title" class="form-control" placeholder="Title">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">DueDate</span>
-                            <input type="date" name="dueDate">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Writer</span>
-                            <input type="text" name="writer" class="form-control" placeholder="Title">
-                        </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Tno</span>
+                        <input type="text" name="tno" class="form-control" value="${dto.tno}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Title</span>
+                        <input type="text" name="title" class="form-control" value="${dto.title}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">DueDate</span>
+                        <input type="date" name="dueDate" class="form-control" value="${dto.dueDate}" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Writer</span>
+                        <input type="text" name="writer" class="form-control" value="${dto.writer}" readonly>
+                    </div>
 
-                        <div class="my-4">
-                            <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                            </div>
+                    <div class="form-check">
+                        <label class="form-check-label">Finished &nbsp;</label>
+                        <input class="form-check-input" type="checkbox" name="finished" ${dto.finished?"checked":""} disabled>
+                    </div>
 
+                    <div class="my-4">
+                        <div class="float-end">
+                            <button type="button" class="btn btn-primary">modify</button>
+                            <button type="button" class="btn btn-secondary">list</button>
                         </div>
-
-                    </form>
+                    </div>
                     <script>
-                        const serverValidResult = {};
-                        <c:forEach items="${errors}" var="error">
-                            serverValidResult['${error.getField()}'] = '${error.defaultMessage}';
-                        </c:forEach>
-                        console.log(serverValidResult);
+                        document.querySelector(".btn-primary").addEventListener("click", function(e) {
+                            self.location = "/todo/modify?tno=" + ${dto.tno};
+
+                        }, false);
+                        document.querySelector(".btn-secondary").addEventListener("click", function(e) {
+                            self.location = "/todo/list";
+
+                        }, false);
                     </script>
                 </div>
             </div><!--card-->
@@ -108,11 +117,11 @@
 
     </div>
     <div class="row content">
-
+        content
     </div>
 
     <div class="row footer">
-        <div class="row fixed-bottom" style="z-index:-100">
+        <div class="row fixed-bottom" stlye="z-index:-100">
             <footer class="py-1 my-1">
                 <p class="text-center text-muted">Footer</p>
             </footer>
