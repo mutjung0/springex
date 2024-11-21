@@ -5,3 +5,5 @@ create table tbl_todo (
 	writer varchar(50) not null,
 	finished tinyint default 0
 );
+
+select * from tbl_todo;
